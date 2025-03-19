@@ -19,6 +19,118 @@ let currentIndex = 0;
 // Seleccionar todos los interruptores (checkboxes) de los temas
 const interruptores = document.querySelectorAll('.tema-opcion input[type="checkbox"]');
 
+// Función para actualizar el contenido del panel
+function actualizarContenidoPanel(contenido) {
+    const contenidoDinamico = document.getElementById("contenido-dinamico");
+    contenidoDinamico.innerHTML = contenido;
+}
+
+// Ejemplo de uso: Agregar contenido al panel
+function agregarContenidoAlPanel() {
+    const nuevoContenido = `
+        <h3>Nueva Sección</h3>
+        <p>Este es un nuevo contenido agregado dinámicamente.</p>
+        <button class="btn-consola" onclick="mostrarAlerta()">Haz clic aquí</button>
+    `;
+    actualizarContenidoPanel(nuevoContenido);
+}
+
+// Ejemplo de uso: Quitar contenido del panel
+function quitarContenidoDelPanel() {
+    actualizarContenidoPanel("<p>El contenido ha sido eliminado.</p>");
+}
+
+// Función de ejemplo para mostrar una alerta
+function mostrarAlerta() {
+    alert("¡Botón clickeado!");
+}
+
+// Mostrar el panel con contenido dinámico
+document.getElementById("panel-izquierdo").addEventListener("click", function () {
+    // Agregar contenido inicial al panel
+    actualizarContenidoPanel(`
+        <h3>Estado de Conexión</h3>
+        <p>Conectado <span class="indicador-conexion" style="background-color: green;"></span></p>
+        <button class="btn-consola" onclick="agregarContenidoAlPanel()">Agregar Contenido</button>
+        <button class="btn-consola" onclick="quitarContenidoDelPanel()">Quitar Contenido</button>
+    `);
+
+    // Mostrar el panel
+    const nuevoPanel = document.getElementById("menu-panel-izquierdo");
+    document.body.appendChild(nuevoPanel);
+    nuevoPanel.classList.add("mostrar");
+    clickSound.play();
+});
+
+document.addEventListener("DOMContentLoaded", function () {
+    const panelIzquierdo = document.getElementById("panel-izquierdo");
+    const nuevoPanel = document.getElementById("menu-panel-izquierdo");
+    const hoverSound = document.getElementById("hover-sound");
+    const clickSound = document.getElementById("click-sound");
+    const backSound = document.getElementById("back-sound");
+
+    // Animación de interactividad (hover)
+    panelIzquierdo.addEventListener("mouseenter", function () {
+        panelIzquierdo.style.transform = "scale(1.05)";
+        panelIzquierdo.style.transition = "transform 0.3s ease";
+        hoverSound.play();
+    });
+
+    panelIzquierdo.addEventListener("mouseleave", function () {
+        panelIzquierdo.style.transform = "scale(1)";
+    });
+
+    // Mostrar el panel al hacer clic
+    panelIzquierdo.addEventListener("click", function () {
+        nuevoPanel.classList.add("mostrar");
+        clickSound.play();
+    });
+
+    // Ocultar el panel al hacer clic en "Volver"
+    document.addEventListener("click", function (event) {
+        if (event.target.closest(".btn-volver-configuracion")) {
+            nuevoPanel.classList.remove("mostrar");
+            backSound.play();
+        }
+    });
+});
+
+
+
+
+document.addEventListener("DOMContentLoaded", function () {
+    const panelDerecho = document.getElementById("panel-derecho");
+    const nuevoPanel = document.getElementById("menu-panel-derecho");
+    const hoverSound = document.getElementById("hover-sound");
+    const clickSound = document.getElementById("click-sound");
+    const backSound = document.getElementById("back-sound");
+
+    // Animación de interactividad (hover)
+    panelDerecho.addEventListener("mouseenter", function () {
+        panelDerecho.style.transform = "scale(1.05)";
+        panelDerecho.style.transition = "transform 0.3s ease";
+        hoverSound.play();
+    });
+
+    panelDerecho.addEventListener("mouseleave", function () {
+        panelDerecho.style.transform = "scale(1)";
+    });
+
+    // Mostrar el panel al hacer clic
+    panelDerecho.addEventListener("click", function () {
+        nuevoPanel.classList.add("mostrar");
+        clickSound.play();
+    });
+
+    // Ocultar el panel al hacer clic en "Volver"
+    document.addEventListener("click", function (event) {
+        if (event.target.closest(".btn-volver-configuracion")) {
+            nuevoPanel.classList.remove("mostrar");
+            backSound.play();
+        }
+    });
+});
+
 // Función para detectar la resolución y aplicar una clase al body
 function detectarResolucion() {
     const ancho = window.innerWidth;

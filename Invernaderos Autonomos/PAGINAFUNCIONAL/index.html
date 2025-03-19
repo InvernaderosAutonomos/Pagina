@@ -79,46 +79,204 @@
   
 <main class="consola">
     <!-- Panel izquierdo (secundario) -->
-    <div class="panel-izquierdo panel">
+    <div  class="panel-izquierdo panel" id="panel-izquierdo">
         <div class="estado-conexion">
             <h3>Estado de Conexión</h3>
-            <p>NO Conectado <span class="indicador-conexion"></span></p>
+            <p>NO Conectado <span class="indicador-conexion"></span><br>  <br> Última conexión: Desconocida</p>
+         
         </div>
     </div>
 
+    <!-- Panel de conexión (oculto inicialmente) -->
+<div class="menu-configuracion" id="menu-panel-izquierdo">
+    <center><h2>Opciones de Conexión</h2></center>
+    <div class="contenido-panel">
+        <!-- Contenido estático o dinámico -->
+        <p></p>
+        <button class="btn-volver-configuracion">
+            <span class="btn-icon">⬅️</span>
+            <span class="btn-text">Volver</span>
+        </button>
+    </div>
+</div>
+    
+
    <!-- Centro (principal) -->
-<main class="consolaI">
-    <div class="centro panel">
-        <div class="bienvenida">
-            <h2>CONSOLA DE CONTROL</h2>
-            <p>Gestiona y controla tu dispositivo Arduino de manera remota.</p>
-            <div class="botones-consola">
-                <center id="btn-ingresar"></center>
-                <button class="btn-consola" id="btn-configuracion" data-color-botones="#0fa037" data-color-texto="#ffffff">
-                    <span>Configuración</span>
-                </button>
+   <div class="centro panel">
+    <div class="bienvenida">
+        <h2>CONSOLA DE CONTROL</h2>
+        <p>Gestiona y controla tu dispositivo Arduino de manera remota.</p>
+    </div>
+
+    <!-- Contenedor para los 4 paneles cuadrados -->
+    <div class="paneles-cuadrados">
+        <!-- Panel 1: Humedad del suelo -->
+        <div class="panel-cuadrado">
+            <h3>Humedad del suelo</h3>
+            <p class="valor">--%</p>
+        </div>
+
+        <!-- Panel 2: Temperatura -->
+        <div class="panel-cuadrado">
+            <h3>Temperatura</h3>
+            <p class="valor">--°C</p>
+        </div>
+
+        <!-- Panel 3: Humedad del aire -->
+        <div class="panel-cuadrado">
+            <h3>Humedad del aire</h3>
+            <p class="valor">--%</p>
+        </div>
+
+        <!-- Contenedor para "Presencia" y el nuevo botón -->
+        <div class="panel-cuadrado-contenedor">
+            <!-- Cuadro de Presencia -->
+            <div class="panel-cuadrado">
+                <h3>Presencia</h3>
+                <p class="valor">--</p>
             </div>
+
+            <!-- Nuevo botón -->
+            <button class="panel-cuadrado boton-adicional" >
+                <span>Personalizado (NO DISPONIBLE)</span>
+            </button>
         </div>
     </div>
-</main>
+
+    <!-- Botón de configuración -->
+    <div class="botones-consola">
+        <button class="btn-consola" id="btn-configuracion" data-color-botones="#0fa037" data-color-texto="#ffffff">
+            <span>Configuración</span>
+        </button>
+    </div>
+</div>
 
 
       <!-- Panel derecho (secundario) -->
-      <div class="panel-derecho panel">
+      <div class="panel-derecho panel" id="panel-derecho">
         <div class="notificaciones">
-            <h3>Notificaciones</h3>
+            <h3>actualizaciones</h3>
             <ul>
-                <li>Sin Notificaciones</li>
+                <li>Historial de actualizaciones</li>
                 <li>----------------------------</li>
-                <li>Última conexión: Desconocida</li>
-                <br>
-                <li>Ver. 0.5.9 Android Support</li>
+                <li>Ver. 0.6.0 Conexion fix</li>
             </ul>
         </div>
     </div>
 </main>
 
+<!-- Panel de notificaciones (oculto inicialmente) -->
+<div class="menu-configuracion" id="menu-panel-derecho">
+    <center><h2>Historial de Actualizaciones</h2></center>
+    <div class="contenido-panel">
 
+        <div class="panel-actualizacion">
+            <div class="fecha">19 de Marzo de 2025</div>
+            <div class="subtitulo">Versión 0.6.0 - Interfaz de usuario</div>
+            <div class="texto">
+              Se añadio la interfaz de usuario en "Configuracion > Cuenta" Permitiendo visualizar los datos de la cuenta y modificar la imagen de perfil
+            </div>
+        </div>
+
+        <!-- Panel de actualización 1 -->
+        <div class="panel-actualizacion">
+            <div class="fecha">1 de Marzo de 2025</div>
+            <div class="subtitulo">Versión 0.5.5 - Fix de conexión</div>
+            <div class="texto">
+                Se corrigió un problema que impedía la conexión estable con el servidor para las cuentas. Ahora la conexión es más rápida y confiable.
+            </div>
+        </div>
+
+        <!-- Panel de actualización 2 -->
+         
+        <div class="panel-actualizacion">
+            <div class="fecha">20 de Febrero de 2025</div>
+            <div class="subtitulo">Versión 0.5.0 - Mejoras en la interfaz v4</div>
+            <div class="texto">
+               Se mejoro la interfaz general de la pagina, ademas de la implementacion de los "TEMAS"
+            </div>
+        </div>
+
+        <!-- Panel de actualización 3 -->
+        <div class="panel-actualizacion">
+            <div class="fecha">14 de Febrero de 2025</div>
+            <div class="subtitulo">Versión 0.4.5 - Nuevas funcionalidades</div>
+            <div class="texto">
+                Se agregaron nuevas funcionalidades, como la gestión de dispositivos y el historial de actualizaciones
+            </div>
+        </div>
+
+        <div class="panel-actualizacion">
+            <div class="fecha">12 de Febrero de 2025</div>
+            <div class="subtitulo">Versión 0.4.0 - Support android</div>
+            <div class="texto">
+                Se agrego la compatibilidad de interfaz para pantallas moviles (desactivado hasta la ver 0.9.5)
+            </div>
+        </div>
+
+        <div class="panel-actualizacion">
+            <div class="fecha">5 de Enero de 2025</div>
+            <div class="subtitulo">Versión 0.3.5 - Mejoras de interfaz v3</div>
+            <div class="texto">
+                Se mejoró la interfaz de usuario, agregando nuevos temas y animaciones. Además, se optimizó el rendimiento general.
+            </div>
+        </div>
+
+        <div class="panel-actualizacion">
+            <div class="fecha">29 de Diciembre de 2024</div>
+            <div class="subtitulo">Versión 0.3.0 - Configuración</div>
+            <div class="texto">
+                Se agregaron las "OPCIONES DE CONFIGURACION" esto con el fin de tener un sitio para accerder comodamente a las opciones del sitio
+            </div>
+        </div>
+
+        <div class="panel-actualizacion">
+            <div class="fecha">23 de Diciembre de 2024</div>
+            <div class="subtitulo">Versión 0.2.5 - Nueva interfaz v2</div>
+            <div class="texto">
+                Es desechada la antigua interfaz copuesta por los 4 botones centrales y es puesta la nueva interfaz la cual es mas amigable y agradable a la vista
+            </div>
+        </div>
+
+        <div class="panel-actualizacion">
+            <div class="fecha">18 de Noviembre de 2024</div>
+            <div class="subtitulo">Versión 0.2.0 - Color uptade</div>
+            <div class="texto">
+                Se elijieron mas colores a corde a estos botones para testear su visualizacion y poder cuestionarlo
+            </div>
+        </div>
+
+        <div class="panel-actualizacion">
+            <div class="fecha">15 de Noviembre de 2024</div>
+            <div class="subtitulo">Versión 0.1.5 - Nueva interfaz</div>
+            <div class="texto">
+                Se añadio la Nueva interfaz la cual se compone de  un "HEADER" y "FOOTER" con un centro de 4 botones para hacer la interaccion lo mas rapido posible
+            </div>
+        </div>
+
+        <div class="panel-actualizacion">
+            <div class="fecha">21 de Octubre de 2024</div>
+            <div class="subtitulo">Versión 0.1.0 - Porpuesta</div>
+            <div class="texto">
+          Se añaden las propuestas para las Opciones de funcion dentro de la pagina   "TEMPERATURA", "HUMEDAD A SUELO" y "HUMEDAD A AIRE"
+  </div>
+        </div>
+
+        <div class="panel-actualizacion">
+            <div class="fecha">20 de Octubre de 2024</div>
+            <div class="subtitulo">Versión 0.0.5 - Creacion</div>
+            <div class="texto">
+                Se crea la primera propuesta para la pagina basada en un simple texto y boton de conexion
+            </div>
+        </div>
+
+        <!-- Botón de "Volver" -->
+        <button class="btn-volver-configuracion">
+            <span class="btn-icon">⬅️</span>
+            <span class="btn-text">Volver</span>
+        </button>
+    </div>
+</div>
 
 
     <!-- Nuevo contenido (oculto inicialmente) -->
@@ -132,8 +290,8 @@
                 <span class="btn-text">Tema</span>
             </button>
             <button class="btn-configuracion" id="btn-sonido" data-menu="menu-sonido">
-                <span class="btn-icon">🔊</span>
-                <span class="btn-text">Sonido</span>
+                <span class="btn-icon">👤</span>
+                <span class="btn-text">Cuenta</span>
             </button>
             <button class="btn-configuracion" id="btn-politicas" data-menu="menu-politicas">
                 <span class="btn-icon">📜</span>
@@ -148,8 +306,8 @@
                 <span class="btn-text">Animaciones</span>
             </button>           
             <button class="btn-configuracion" id="btn-reestablecer" data-menu="menu-reestablecer">
-                <span class="btn-icon">🔄</span>
-                <span class="btn-text">Reestablecer configuración</span>
+                <span class="btn-icon">🔈</span>
+                <span class="btn-text">Sonido</span>
             </button>
             <button class="btn-configuracion" id="btn-volver">
                 <span class="btn-icon">⬅️</span>
@@ -239,12 +397,16 @@
 </div>
 
     <div class="menu-configuracion" id="menu-sonido">
-        <center><h2>Opciones de Sonido</h2></center>
+        <center><h2>Opciones de Cuenta</h2></center>
+
+        
         <button class="btn-volver-configuracion">
             <span class="btn-icon">⬅️</span>
             <span class="btn-text">Volver</span>
         </button>
     </div>
+
+    
 
     <div class="menu-configuracion" id="menu-politicas">
         <center><h2>Políticas de Uso/Privacidad</h2></center>
@@ -388,7 +550,7 @@ Nos reservamos el derecho de modificar esta Política de Privacidad en cualquier
     </div>
 
     <div class="menu-configuracion" id="menu-reestablecer">
-        <center><h2>Reestablecer Configuración</h2></center>
+        <center><h2>Opciones de Sonido</h2></center>
         <button class="btn-volver-configuracion">
             <span class="btn-icon">⬅️</span>
             <span class="btn-text">Volver</span>
@@ -399,30 +561,7 @@ Nos reservamos el derecho de modificar esta Política de Privacidad en cualquier
 
 
 
-<!-- Panel de Log In (oculto inicialmente) -->
-<div class="panel-login" id="panel-login">
-    <div class="login-contenido">
-        <h2>Iniciar Sesión</h2>
-        <!-- Modificar la acción del formulario para que apunte al archivo login.php -->
-        <form action="login.php" method="POST">
-            <div class="form-group">
-                <label for="nombre">Usuario o Correo Electrónico:</label>
-                <input type="text" id="nombre" name="nombre" required placeholder="Ingresa tu usuario o correo">
-            </div>
-            <div class="form-group">
-                <label for="password">Contraseña:</label>
-                <input type="password" id="password" name="password" required placeholder="Ingresa tu contraseña">
-            </div>
-            <div class="form-group">
-                <a href="#" class="link-olvidaste">¿Olvidaste tu contraseña?</a>
-            </div>
-            <button type="submit" class="submit-btn">Ingresar</button> 
-            <a href="registrar.html"><button type="button" class="btn-registro" id="btn-registro">Crear una cuenta</button></a>
-            <button type="button" class="btn-cerrar-login" id="btn-cerrar-login">Cerrar</button>
-        </form>
-    </div>
-</div>
-  
+
 
 
     <!-- Footer -->
@@ -453,4 +592,4 @@ Nos reservamos el derecho de modificar esta Política de Privacidad en cualquier
 
     <script src="script.js"></script>
 </body>
-</html>
+</html>   
