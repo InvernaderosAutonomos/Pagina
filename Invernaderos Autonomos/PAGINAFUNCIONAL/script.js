@@ -25,6 +25,11 @@ function actualizarContenidoPanel(contenido) {
     contenidoDinamico.innerHTML = contenido;
 }
 
+
+
+
+
+
 // Ejemplo de uso: Agregar contenido al panel
 function agregarContenidoAlPanel() {
     const nuevoContenido = `
