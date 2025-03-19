@@ -164,12 +164,12 @@ if (isset($_SESSION['nombre_usuario'], $_SESSION['apellidos'], $_SESSION['correo
 
 async function obtenerLecturas() {
     try {
-        const respuesta = await fetch("http://172.20.10.2/lecturas");
+        const respuesta = await fetch("http://192.168.137.195/lecturas");
         const datos = await respuesta.json();
-        document.getElementById("humedad").innerText = datos.humedadSuelo;
-        document.getElementById("temperatura").innerText = datos.temperatura;
-        document.getElementById("humedadAire").innerText = datos.humedadAire;
-        document.getElementById("presencia").innerText = datos.presencia;
+        document.getElementById("panel-cuadrado-Humedad").innerText = datos.humedadSuelo;
+        document.getElementById("panel-cuadrado-Temperatura");
+        document.getElementById("panel-cuadrado-Humedad-Aire").innerText = datos.humedadAire;
+        document.getElementById("panel-cuadrado-Presencia").innerText = datos.presencia;
     } catch (error) {
         console.error("Error al obtener las lecturas:", error);
     }
@@ -188,19 +188,19 @@ setInterval(obtenerLecturas, 3000);
         <!-- Panel 1: Humedad del suelo -->
         <div class="panel-cuadrado-Humedad">
             <h3>Humedad del suelo</h3>
-            <p class="valor">CARGANDO...</p>
+            <p class="valor" id="humedad">CARGANDO...</p>
         </div>
 
         <!-- Panel 2: Temperatura -->
         <div class="panel-cuadrado-Temperatura">
             <h3>Temperatura</h3>
-            <p class="valor">CARGANDO...</p>
+            <p class="valor" id="temperatura">CARGANDO...</p>
         </div>
 
         <!-- Panel 3: Humedad del aire -->
         <div class="panel-cuadrado-Humedad-Aire">
             <h3>Humedad del aire</h3>
-            <p class="valor">CARGANDO...</p>
+            <p class="valor" id="humedadAire">CARGANDO...</p>
         </div>
 
         <!-- Contenedor para "Presencia" y el nuevo botón -->
@@ -208,7 +208,7 @@ setInterval(obtenerLecturas, 3000);
             <!-- Cuadro de Presencia -->
             <div class="panel-cuadrado-Presencia">
                 <h3>Presencia</h3>
-                <p class="valor">CARGANDO...</p>
+                <p class="valor" id="presencia">CARGANDO...</p>
             </div>
 
             <!-- Nuevo botón -->

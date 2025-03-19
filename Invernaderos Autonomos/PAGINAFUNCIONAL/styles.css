@@ -485,6 +485,7 @@ body.bloquear-scroll {
     background-color: #e0e0e0; /* Color de fondo diferente para el botón */
     cursor: not-allowed; /* Cambia el cursor a "no permitido" */
     border: none; /* Elimina el borde */
+    height: 70px; /* Botón más alto */
 }
 
 .panel-cuadrado.boton-adicional span {
@@ -505,7 +506,7 @@ body.bloquear-scroll {
 
 /* Contenedor para "Presencia" y el nuevo botón */
 .panel-cuadrado-contenedor {
-    flex: 1 1 calc(25% - 5px); /* Ocupa el mismo espacio que un cuadrado */
+    flex: 1 1 calc(100% - 2px); /* Ocupa el mismo espacio que un cuadrado */
     display: flex;
     gap: 5px; /* Espacio entre el cuadro y el botón */
 }
@@ -521,16 +522,16 @@ body.bloquear-scroll {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-color: #f9f9f9; /* Mismo color de fondo que los cuadrados */
+    background-color: #000000; /* Mismo color de fondo que los cuadrados */
     border: none; /* Quita el borde por defecto de los botones */
     padding: 5px;
     border-radius: 5px; /* Bordes redondeados como los cuadrados */
     box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); /* Sombra como los cuadrados */
     cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
-    font-size: 14px; /* Tamaño de la letra */
+    font-size: 140px; /* Tamaño de la letra */
     color: #2c3e50; /* Color del texto */
     text-align: center;
-    height: 70px; /* Permite ajustar la altura */
+    height: 200px; /* Permite ajustar la altura */
 }
 
 /* Efecto hover para el botón */
