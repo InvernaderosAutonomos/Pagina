@@ -661,6 +661,85 @@ main.consola.fade-out {
 
 
 
+.pasta {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* Espacio entre los cuadros */
+    flex-wrap: wrap; /* Permite que los cuadros se acomoden de forma automática si no caben en una fila */
+    margin-top: 20px;
+}
+
+/* Estilo para cada cuadro */
+.pizza {
+    background-color: #f0f0f0;
+    padding: 30px;
+    border-radius: 8px;
+    width: 23%; /* Tamaño de cada cuadro, se ajusta para que todo encaje */
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 16px; /* Tamaño de texto más grande */
+    box-sizing: border-box;
+}
+
+.lasagna {
+    background-color: #f0f0f0;
+    padding: 30px;
+    border-radius: 8px;
+    width: 23%;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.risotto {
+    background-color: #f0f0f0;
+    padding: 30px;
+    border-radius: 8px;
+    width: 23%;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.gelato {
+    background-color: #f0f0f0;
+    padding: 30px;
+    border-radius: 8px;
+    width: 23%;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+/* Estilo para el texto dentro de los cuadros */
+.pizza p, .lasagna p, .risotto p, .gelato p {
+    margin: 0;
+    color: #333;
+}
+
+/* Estilo para el botón de volver */
+.btn-volver-configuracion {
+    display: block;
+    margin: 30px auto;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-volver-configuracion:hover {
+    background-color: #45a049;
+}
+
+
+
+
 
 /* Footer oscuro */
 footer {

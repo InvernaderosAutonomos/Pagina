@@ -27,6 +27,16 @@ function actualizarContenidoPanel(contenido) {
 
 
 
+document.querySelectorAll('.casilla').forEach(casilla => {
+    casilla.addEventListener('click', () => {
+        alert(`Hiciste clic en: ${casilla.querySelector('h4').textContent}`);
+    });
+});
+
+
+
+
+
 
 
 
