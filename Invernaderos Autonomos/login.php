@@ -38,7 +38,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 $_SESSION['login_status'] = 'exitoso';
 
                 // Redirigimos a la página 'pollito.html'
-                header("Location: pollito.html");
+                header("Location: PAGINAFUNCIONAL/index.html");
                 exit();
             } else {
                 // Si la contraseña no es correcta, establecemos el estado de login fallido
