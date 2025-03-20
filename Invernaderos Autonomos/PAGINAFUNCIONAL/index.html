@@ -102,29 +102,107 @@
   <!-- Cuerpo - Interfaz de consola -->
   
 <main class="consola">
-    <!-- Panel izquierdo (secundario) -->
-    <div  class="panel-izquierdo panel" id="panel-izquierdo">
-        <div class="estado-conexion">
-            <h3>Estado de Conexión</h3>
-            <p>NO Conectado <span id="indicador-conexion" class="indicador-conexion"></span><br>  <br> Última conexión: Desconocida</p>
-        </div>
+    <!-- Panel de estado de conexión (actúa como botón) -->
+<div class="panel-izquierdo panel" id="panel-izquierdo" onclick="mostrarPanelConfiguracion()">
+    <div class="estado-conexion">
+        <h3>Estado de Conexión</h3>
+        <p>
+            <span id="texto-conexion">No Conectado</span>
+            <span id="indicador-conexion" class="indicador-conexion"></span><br>
+            <br>
+            Reloj: <span id="ultima-conexion">Desconocida</span>
+        </p>
     </div>
+</div>
 
-    <!-- Panel de conexión (oculto inicialmente) -->
+<!-- Panel de configuración (oculto inicialmente) -->
+<div class="panel-configuracion" id="panel-configuracion" style="display: none;">
+    <h2>Panel de Configuración</h2>
+    <p>Este es el panel de configuración.</p>
+    <button onclick="ocultarPanelConfiguracion()">Volver</button>
+</div>
+
+    <script>
+        //***********************************************************ESTADO DE CONEXION********************************************************************************************************* */
+        
+        
+        
+        // Función para actualizar el estado de conexión
+function actualizarEstadoConexion(conectado) {
+    const indicadorConexion = document.getElementById("indicador-conexion");
+    const textoConexion = document.getElementById("texto-conexion");
+    const ultimaConexion = document.getElementById("ultima-conexion");
+
+    if (conectado) {
+        // Cambiar a verde y "Conectado"
+        indicadorConexion.classList.remove("rojo");
+        indicadorConexion.classList.add("verde");
+        textoConexion.innerText = "Conectado";
+        ultimaConexion.innerText = new Date().toLocaleTimeString(); // Actualizar la última conexión
+    } else {
+        // Cambiar a rojo y "No Conectado"
+        indicadorConexion.classList.remove("verde");
+        indicadorConexion.classList.add("rojo");
+        textoConexion.innerText = "No Conectado";
+    }
+}
+
+// Función para obtener las lecturas y actualizar el estado
+async function obtenerLecturas() {
+    try {
+        const respuesta = await fetch("http://192.168.1.93/lecturas");
+
+        // Verificar si la respuesta es exitosa (código 200)
+        if (!respuesta.ok) {
+            throw new Error(`Error en la solicitud: ${respuesta.statusText}`);
+        }
+
+        const datos = await respuesta.json();
+
+        // Actualizar las lecturas de los sensores
+        document.getElementById("panel-cuadrado-Humedad").innerText = datos.humedadSuelo;
+        document.getElementById("panel-cuadrado-Temperatura").innerText = datos.temperatura;
+        document.getElementById("panel-cuadrado-Humedad-Aire").innerText = datos.humedadAire;
+        document.getElementById("panel-cuadrado-Presencia").innerText = datos.presencia;
+
+        // Actualizar el estado de conexión a "Conectado"
+        actualizarEstadoConexion(true);
+    } catch (error) {
+        console.error("Error al obtener las lecturas:", error);
+
+        // Actualizar el estado de conexión a "No Conectado"
+        actualizarEstadoConexion(false);
+    }
+}
+
+
+
+// Actualizar lecturas y estado de conexión cada 3 segundos
+setInterval(obtenerLecturas, 3000);
+
+// Llamar a la función cuando la página se cargue
+window.addEventListener("load", obtenerLecturas);
+        
+        
+        
+        //***********************************************************FIN ESTADO DE CONEXION********************************************************************************************************* */
+        </script>
+
+
+   <!-- Panel de conexión -->
 <div class="menu-configuracion" id="menu-panel-izquierdo">
     <center><h2>Opciones de Conexión</h2></center>
     <div class="contenido-panel">
-        <!-- Contenido estático o dinámico -->
         <div class="contenido-panel-izquierdo">
             <!-- Casilla 1 -->
             <div class="casilla">
                 <h4>NOMBRE DEL DISPOSITIVO:</h4>
-                <p></p>
+                <p id="nombre-dispositivo">Desconocido</p> <!-- ID para nombre -->
             </div>
             <!-- Casilla 2 -->
             <div class="casilla">
                 <h4>ID DEL DISPOSITIVO:</h4>
-                <p>Desconocido</p>
+                <p id="id-dispositivo">Desconocido</p> <!-- ID para ID -->
             </div>
         </div>
         <button class="btn-volver-configuracion">
@@ -133,6 +211,49 @@
         </button>
     </div>
 </div>
+
+<script>
+//***********************************************************PANEL CONECTADO********************************************************************************************************* */
+
+
+// Función para obtener y mostrar el nombre e ID del dispositivo
+async function obtenerNombreYID() {
+    try {
+        // Hacer una solicitud HTTP GET a la ruta "/lecturas"
+        const respuesta = await fetch("http://192.168.1.93/lecturas");
+
+        // Verificar si la respuesta es exitosa (código 200)
+        if (!respuesta.ok) {
+            throw new Error(`Error en la solicitud: ${respuesta.statusText}`);
+        }
+
+        // Convertir la respuesta a JSON
+        const datos = await respuesta.json();
+
+        // Actualizar el nombre y el ID en el panel de conexión
+        document.getElementById("nombre-dispositivo").innerText = datos.nombreSistema;
+        document.getElementById("id-dispositivo").innerText = datos.idSistema;
+    } catch (error) {
+        console.error("Error al obtener el nombre e ID del dispositivo:", error);
+
+        // Mostrar "Desconocido" si hay un error
+        document.getElementById("nombre-dispositivo").innerText = "Desconocido";
+        document.getElementById("id-dispositivo").innerText = "Desconocido";
+    }
+}
+
+// Llamar a la función cuando la página se cargue
+window.addEventListener("load", obtenerNombreYID);
+
+// Opcional: Actualizar el nombre e ID cada 5 segundos
+setInterval(obtenerNombreYID, 5000);
+
+
+
+
+//***********************************************************FIN PANEL CONECTADO********************************************************************************************************* */
+</script>
+
     
 
    <!-- Centro (principal) -->
@@ -147,10 +268,10 @@
 
 async function obtenerLecturas() {
     try {
-        const respuesta = await fetch("http://192.168.137.195/lecturas");
+        const respuesta = await fetch("http://192.168.1.93/lecturas");
         const datos = await respuesta.json();
         document.getElementById("panel-cuadrado-Humedad").innerText = datos.humedadSuelo;
-        document.getElementById("panel-cuadrado-Temperatura");
+        document.getElementById("panel-cuadrado-Temperatura").innerText = datos.temperatura;
         document.getElementById("panel-cuadrado-Humedad-Aire").innerText = datos.humedadAire;
         document.getElementById("panel-cuadrado-Presencia").innerText = datos.presencia;
     } catch (error) {
@@ -171,19 +292,19 @@ setInterval(obtenerLecturas, 3000);
         <!-- Panel 1: Humedad del suelo -->
         <div class="panel-cuadrado-Humedad">
             <h3>Humedad del suelo</h3>
-            <p class="valor" id="humedad">CARGANDO...</p>
+            <p class="valor" id="panel-cuadrado-Humedad">CARGANDO...</p>
         </div>
 
         <!-- Panel 2: Temperatura -->
         <div class="panel-cuadrado-Temperatura">
             <h3>Temperatura</h3>
-            <p class="valor" id="temperatura">CARGANDO...</p>
+            <p class="valor" id="panel-cuadrado-Temperatura">CARGANDO...</p>
         </div>
 
         <!-- Panel 3: Humedad del aire -->
         <div class="panel-cuadrado-Humedad-Aire">
             <h3>Humedad del aire</h3>
-            <p class="valor" id="humedadAire">CARGANDO...</p>
+            <p class="valor" id="panel-cuadrado-Humedad-Aire">CARGANDO...</p>
         </div>
 
         <!-- Contenedor para "Presencia" y el nuevo botón -->
@@ -191,7 +312,7 @@ setInterval(obtenerLecturas, 3000);
             <!-- Cuadro de Presencia -->
             <div class="panel-cuadrado-Presencia">
                 <h3>Presencia</h3>
-                <p class="valor" id="presencia">CARGANDO...</p>
+                <p class="valor" id="panel-cuadrado-Presencia">CARGANDO...</p>
             </div>
 
             <!-- Nuevo botón -->
@@ -217,7 +338,7 @@ setInterval(obtenerLecturas, 3000);
             <ul>
                 <li>Historial de actualizaciones</li>
                 <li>----------------------------</li>
-                <li>Ver. 0.6.0 Conexion fix</li>
+                <li>Ver. 0.6.5 Software Uptade</li>
             </ul>
         </div>
     </div>
@@ -226,10 +347,31 @@ setInterval(obtenerLecturas, 3000);
 <!-- Panel de notificaciones (oculto inicialmente) -->
 <div class="menu-configuracion" id="menu-panel-derecho">
     <center><h2>Historial de Actualizaciones</h2></center>
-    <div class="contenido-panel">
+    <div class="contenido-panel"> 
+        
+        <div class="panel-actualizacion">
+            <div class="fecha">20 de Marzo de 2025</div>
+            <div class="subtitulo">Versión 0.7.5 - Joke Uptade</div>
+            <div class="texto">
+                Se reemplazaron opciones inutiles en "Configuracion" con opciones divertidas y evitar bruscos recortes           </div>
+        </div>
 
         <div class="panel-actualizacion">
+            <div class="fecha">20 de Marzo de 2025</div>
+            <div class="subtitulo">Versión 0.7.0 - 20 DE MARZO!!!!</div>
+            <div class="texto">
+                Hoy es 20 de marzo, este 20 de marzo merece dos pulgares . Es el mejor día de todos baby, ¡¡¡WOOHOO!!! es 20 de marzo           </div>
+        </div>
+        
+        <div class="panel-actualizacion">
             <div class="fecha">19 de Marzo de 2025</div>
+            <div class="subtitulo">Versión 0.6.5 - Software Uptade</div>
+            <div class="texto">
+           Se implemento la conexion son la placa programada y enviar los datos correspondientes a la pagina            </div>
+        </div>
+
+        <div class="panel-actualizacion">
+            <div class="fecha">15 de Marzo de 2025</div>
             <div class="subtitulo">Versión 0.6.0 - Interfaz de usuario</div>
             <div class="texto">
               Se añadio la interfaz de usuario en "Configuracion > Cuenta" Permitiendo visualizar los datos de la cuenta y modificar la imagen de perfil
@@ -355,17 +497,15 @@ setInterval(obtenerLecturas, 3000);
                 <span class="btn-icon">📜</span>
                 <span class="btn-text">Políticas de uso/privacidad</span>
             </button>
-            <button class="btn-configuracion" id="btn-dispositivos" data-menu="menu-dispositivos">
-                <span class="btn-icon">📱</span>
-                <span class="btn-text">Administrar dispositivos</span>
+           
             </button>
             <button class="btn-configuracion" id="btn-animaciones" data-menu="menu-animaciones">
-                <span class="btn-icon">🎬</span>
-                <span class="btn-text">Animaciones</span>
+                <span class="btn-icon">🌈</span>
+                <span class="btn-text">Olores de pagina</span>
             </button>           
             <button class="btn-configuracion" id="btn-reestablecer" data-menu="menu-reestablecer">
-                <span class="btn-icon">🔈</span>
-                <span class="btn-text">Sonido</span>
+                <span class="btn-icon"></span>
+                <span class="btn-text">NADA</span>
             </button>
             <button class="btn-configuracion" id="btn-volver">
                 <span class="btn-icon">⬅️</span>
@@ -659,24 +799,186 @@ Nos reservamos el derecho de modificar esta Política de Privacidad en cualquier
         </button>
     </div>
 
-    <div class="menu-configuracion" id="menu-dispositivos">
-        <center><h2>Administrar Dispositivos</h2></center>
-        <button class="btn-volver-configuracion">
-            <span class="btn-icon">⬅️</span>
-            <span class="btn-text">Volver</span>
-        </button>
-    </div>
 
+
+    
     <div class="menu-configuracion" id="menu-animaciones">
-        <center><h2>Opciones de Animaciones</h2></center>
+        <center><h2>🌈 Opciones de Olores 🌈</h2></center>
+        
+        <div class="opciones-olores">
+            <button id="btn-anterior">⬅️</button>
+            
+            <div class="contenedor-olor">
+                <h3 id="nombre-olor">🚫 Sin olor</h3>
+                <p id="descripcion-olor">La experiencia más realista, porque tu dispositivo sigue sin poder emitir olores.</p>
+            </div>
+            
+            <button id="btn-siguiente">➡️</button>
+        </div>
+    
         <button class="btn-volver-configuracion">
             <span class="btn-icon">⬅️</span>
             <span class="btn-text">Volver</span>
         </button>
     </div>
-
+    
+    <style>
+        .menu-configuracion {
+            text-align: center;
+            padding: 20px;
+            border-radius: 15px;
+            transition: background 0.5s ease-in-out;
+        }
+    
+        .opciones-olores {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 20px 0;
+            gap: 30px;
+        }
+    
+        .contenedor-olor {
+            width: 400px;
+            height: 250px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            border-radius: 20px;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            transition: background 0.5s ease-in-out, transform 0.3s ease;
+        }
+    
+        button {
+            background-color: #ffcc00;
+            border: none;
+            padding: 15px 20px;
+            font-size: 24px;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: 0.3s ease;
+        }
+    
+        button:hover {
+            background-color: #ffaa00;
+            transform: scale(1.1);
+        }
+    
+        #nombre-olor {
+            font-size: 28px;
+            font-weight: bold;
+        }
+    
+        #descripcion-olor {
+            font-style: italic;
+            font-size: 18px;
+            color: white;
+            margin-top: 10px;
+        }
+    </style>
+    
+    <script>
+        const olores = [
+            { 
+                nombre: "🚫 Sin olor", 
+                descripcion: "La experiencia más realista, porque tu dispositivo sigue sin poder emitir olores.", 
+                color: "#333333" 
+            },
+            { 
+                nombre: "☕ Café recién hecho", 
+                descripcion: "Ese aroma que te da esperanzas por la mañana, pero no te quita el sueño acumulado.", 
+                color: "#4B2E19" 
+            },
+            { 
+                nombre: "🌧️ Tierra mojada", 
+                descripcion: "El olor favorito de la gente que dice 'me encanta la lluvia' pero sale con paraguas.", 
+                color: "#5D6D7E" 
+            },
+            { 
+                nombre: "🌊 Brisa marina", 
+                descripcion: "Frescura oceánica con un 5% de aire puro y un 95% de gaviotas robando papas fritas.", 
+                color: "#3498DB" 
+            },
+            { 
+                nombre: "🍓 Fresas frescas", 
+                descripcion: "Tan dulce que sentirás que tu habitación es una tienda de yogures.", 
+                color: "#E91E63" 
+            },
+            { 
+                nombre: "🎭 Sorpresa misteriosa", 
+                descripcion: "Puede ser vainilla, puede ser gasolina, o puede que nunca lo descubras.", 
+                color: "#9C27B0" 
+            },
+            { 
+                nombre: "🔥 Humo de fogata", 
+                descripcion: "El olor que te hace sentir en un campamento... sin la necesidad de un campamento.", 
+                color: "#FF5722" 
+            },
+            { 
+                nombre: "🍩 Donas recién horneadas", 
+                descripcion: "Cuidado, tu cerebro puede confundirlo con un desayuno real.", 
+                color: "#FFC107" 
+            },
+            { 
+                nombre: "🍋 Limón ultra fresco", 
+                descripcion: "Tan ácido que solo imaginarlo hace que te duela la mandíbula.", 
+                color: "#F4D03F" 
+            },
+            { 
+                nombre: "🧼 Jabón recién abierto", 
+                descripcion: "Ideal si te encanta el olor del jabón pero odias usarlo.", 
+                color: "#85C1E9" 
+            }
+        ];
+    
+        let indiceActual = 0;
+    
+        function actualizarOlor() {
+            const olorActual = olores[indiceActual];
+            document.getElementById("nombre-olor").innerText = olorActual.nombre;
+            document.getElementById("descripcion-olor").innerText = olorActual.descripcion;
+            document.querySelector(".contenedor-olor").style.background = olorActual.color;
+            document.querySelector(".menu-configuracion").style.background = olorActual.color;
+        }
+    
+        document.getElementById("btn-anterior").addEventListener("click", () => {
+            indiceActual = (indiceActual - 1 + olores.length) % olores.length;
+            actualizarOlor();
+        });
+    
+        document.getElementById("btn-siguiente").addEventListener("click", () => {
+            indiceActual = (indiceActual + 1) % olores.length;
+            actualizarOlor();
+        });
+    
+        actualizarOlor();
+    </script>
+    
     <div class="menu-configuracion" id="menu-reestablecer">
-        <center><h2>Opciones de Sonido</h2></center>
+        <center><h2>QUE VES LITERALMENTE ES NADA</h2></center>
+        <center><h4>a menos que</h4></center>
+        <center><h1>La Nada: Un Viaje a la Ausencia Absoluta</h1></center>
+        <center>La nada es, por definición, la ausencia de todo. No tiene forma, color, sonido ni propósito. No es materia ni energía, ni siquiera vacío. Es aquello que no es, un concepto que desafía la mente humana, porque pensar en la nada es, paradójicamente, llenarla con pensamiento.
+
+            Nos pasamos la vida huyendo de la nada, llenando cada instante con palabras, acciones, ruido, imágenes, ideas. Nos aterra la ausencia porque, de algún modo, hemos asociado la nada con la inexistencia, como si todo lo que somos dependiera de la acumulación constante de cosas, experiencias y pensamientos. Pero la nada no es solo vacío. Es también potencial. Es el lienzo en blanco antes de la primera pincelada, el silencio antes de la primera nota, el descanso antes del movimiento.
+            
+            Imagina por un momento un espacio infinito de nada, sin luz ni oscuridad, sin tiempo ni dirección. No hay pasado ni futuro, porque el tiempo mismo es una construcción humana, una forma de ordenar el caos de la existencia. En la nada, no hay preguntas ni respuestas, porque no hay quien las formule ni quien las escuche. No hay miedo ni deseo, porque no hay nada que perder ni nada que ganar.
+            
+            Y sin embargo, la nada nos rodea. En cada pausa entre palabras, en cada momento de espera, en cada instante en el que no sabemos qué hacer o qué decir. Nos esforzamos por llenar esos vacíos con distracciones, como si el silencio fuera un enemigo, como si la falta de estímulo nos dejara solos con nosotros mismos, expuestos ante nuestra propia existencia.
+            
+            Pero ¿y si abrazáramos la nada? ¿Si en lugar de temerla, la aceptáramos como parte esencial de la vida? La nada es descanso, es espacio para la creación, es la base sobre la que todo se construye. Si todo fuera siempre algo, no habría espacio para el cambio. Si todo estuviera siempre lleno, no habría lugar para lo nuevo.
+            
+            Incluso en la física moderna, la nada no es tan vacía como parece. El vacío cuántico, que se suponía un abismo absoluto, está en realidad lleno de fluctuaciones, de partículas que aparecen y desaparecen en una danza efímera. La nada, vista de cerca, es la cuna de la existencia.
+            
+            Entonces, la nada no es el fin, sino el principio. Es el espacio entre las notas que permite que la música tenga ritmo. Es la pausa en una conversación que da profundidad a las palabras. Es la página en blanco que permite que una historia tome forma.
+            
+            Quizás, en lugar de huir de la nada, deberíamos aprender a habitarla. A descansar en ella sin miedo. A encontrar en su aparente vacío la semilla de algo nuevo. Porque si la nada es el punto de partida de todo, entonces, en el fondo, la nada es infinita.</center>
+
+
         <button class="btn-volver-configuracion">
             <span class="btn-icon">⬅️</span>
             <span class="btn-text">Volver</span>

@@ -316,6 +316,8 @@ body.bloquear-scroll {
 }
 
 
+
+
 /* Contenedor para las casillas */
 .contenido-panel-izquierdo {
     display: flex;
@@ -365,7 +367,7 @@ body.bloquear-scroll {
 .contenido-panel {
     max-height: 400px;
     overflow-y: auto;
-    padding: 10px;
+    padding: 50px;
     margin: 10px 0;
     border: 1px solid #ccc;
     border-radius: 8px;
@@ -392,14 +394,58 @@ body.bloquear-scroll {
     color: #555;
 }
 
+/* Estilos para el foquito (indicador de conexión) */
 .indicador-conexion {
-    display: inline-block;
-    width: 10px;
-    height: 10px;
-    background-color: #ff0000;
+    width: 15px;
+    height: 15px;
     border-radius: 50%;
-    margin-left: 10px;
+    display: inline-block;
+    margin-left: 20px;
+    transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    background-color: red;
+    box-shadow: 0 0 10px red;
 }
+
+/* Foquito rojo (estado "No Conectado") */
+.indicador-conexion.rojo {
+    background-color: red;
+    box-shadow: 0 0 10px red;
+}
+
+/* Foquito verde (estado "Conectado") */
+.indicador-conexion.verde {
+    background-color: green;
+    box-shadow: 0 0 10px green;
+}
+
+/* Estilos para el texto de estado */
+#texto-conexion {
+    font-size: 1rem;
+    color: #555;
+    transition: color 0.3s ease;
+}
+
+/* Texto en estado "Conectado" */
+#texto-conexion.conectado {
+    color: green;
+}
+
+/* Texto en estado "No Conectado" */
+#texto-conexion.no-conectado {
+    color: red;
+}
+
+/* Estilos para el panel de estado de conexión */
+.panel-izquierdo {
+    cursor: pointer; /* Indica que el panel es clickeable */
+    transition: background-color 0.3s ease;
+}
+
+.panel-izquierdo:hover {
+    background-color: #e0e0e0; /* Cambia el color al pasar el mouse */
+}
+
+
 
 
 
