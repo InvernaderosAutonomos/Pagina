@@ -1,0 +1,1172 @@
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #ff0000;
+    color: #333;
+    overflow: hidden;
+}
+
+/* Encabezado */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2c3e50;
+    color: white;
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+.logo h1 {
+    color: white;
+}
+
+.botones-header button {
+    background-color: #0fa037; /* Nuevo color */
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    margin-left: 10px;
+    cursor: pointer;
+    border-radius: 5px;
+    font-size: 16px;
+    transition: background-color 0.3s ease;
+}
+
+.botones-header button:hover {
+    background-color: #0d8a2f; /* Color más oscuro al hacer hover */
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+}
+
+.icono {
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+/* Cuerpo - Interfaz de consola */
+main.consola {
+    flex: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center; /* Centrado vertical */
+    padding: 20px;
+    gap: 20px;
+    transition: opacity 0.5s ease;
+    height: 100vh;
+    aspect-ratio: 16 / 8; /* Mantiene una relación de aspecto de 16:9 */
+    width: 100%; /* Ajusta el ancho según sea necesario */
+}
+
+/* Nuevo contenido (oculto inicialmente) */
+.nuevo-contenido {
+    display: none;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Centrado vertical */
+    text-align: center;
+    opacity: 0;
+    transition: opacity 0.5s ease;
+    height: 100vh; /* Ocupa toda la altura */
+}
+
+/* Animación de desvanecimiento (salida) */
+.fade-out {
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+/* Animación de aparición (entrada) */
+.fade-in {
+    opacity: 1;
+    display: flex;
+    animation: fadeIn 0.5s ease;
+}
+
+/* Definición de la animación de entrada */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Animación de entrada (fade-in) para los menús */
+.menu-configuracion.mostrar {
+    opacity: 1;
+    pointer-events: auto;
+    transition: opacity 0.3s ease;
+}
+
+/* Estilos para el contenedor de configuración */
+.nuevo-contenido {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center; /* Centrado vertical */
+    padding: 20px;
+    width: 100%;
+    max-width: 1400px;
+    margin: 0 auto;
+    height: 100vh; /* Ocupa toda la altura */
+}
+
+.nuevo-contenido h2 {
+    text-align: center;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+}
+
+
+
+
+
+
+
+
+
+
+/* Botones de configuración */
+.btn-configuracion {
+    background-color: #2c3e50; /* Fondo oscuro */
+    color: white;
+    border: 2px solid #0fa037; /* Borde verde */
+    padding: 20px 30px;
+    margin: 10px 0;
+    width: 100%;
+    max-width: 400px;
+    text-align: left;
+    font-size: 1.5rem;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: relative;
+    overflow: hidden;
+}
+
+.btn-configuracion .btn-icon {
+    font-size: 1.8rem;
+}
+
+.btn-configuracion .btn-text {
+    flex: 1;
+}
+
+.btn-configuracion:hover {
+    border-color: #0d8a2f; /* Borde más oscuro al hacer hover */
+    box-shadow: 0 0 10px rgba(15, 160, 55, 0.7);
+}
+
+.btn-configuracion:active {
+    transform: scale(0.95);
+    border-color: #0d8a2f;
+    box-shadow: 0 0 15px rgba(15, 160, 55, 0.9);
+}
+
+/* Contenedor del carrusel */
+.configuracion-opciones {
+    display: flex;
+    flex-direction: column;
+    align-items: -0px; /* Centrado vertical */
+    justify-content: center; /* Centrado vertical */
+    overflow: hidden;
+    height: 100%; /* Ocupa toda la altura */
+    position: relative;
+    width: 100%;
+}
+
+/* Botones del carrusel */
+.btn-configuracion {
+    background-color: #2c3e50; /* Fondo oscuro */
+    color: white;
+    border: 2px solid #0fa037; /* Borde verde */
+    padding: 40px 30px;
+    margin: 5px 0;
+    width: 100%;
+    max-width: 500px;
+    text-align: left;
+    font-size: 1.5rem;
+    cursor: pointer;
+    border-radius: 12px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    position: absolute;
+    opacity: 0.6;
+    transform: scale(1.0);
+    top: 40%;
+    right: 6px;
+    transform-origin: right center;
+}
+
+/* Botón activo (central) */
+.btn-configuracion.active {
+    transform: scale(1.2) translateY(-50%);
+    opacity: 1;
+    border-color: #0fa037;
+    box-shadow: 0 0 10px rgba(15, 160, 55, 0.7);
+    z-index: 2;
+}
+
+/* Botones inactivos */
+.btn-configuracion:not(.active) {
+    transform: scale(0.9) translateY(-50%);
+    opacity: 0.6;
+    z-index: 1;
+}
+
+/* Contenedor del menú de configuración */
+.menu-configuracion {
+    position: fixed;
+    top: 50%; /* Centrado vertical */
+    left: 50%;
+    transform: translate(-50%, -50%); /* Centrado vertical y horizontal */
+    width: 90vw;
+    height: 63vh;
+    max-height: 700px;
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    z-index: 1000;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+}
+
+.menu-configuracion.mostrar {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Botón de Volver (dentro de los menús) */
+.btn-volver-configuracion {
+    position: absolute;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #0fa037; /* Nuevo color */
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 1001;
+}
+
+.btn-volver-configuracion:hover {
+    background-color: #0d8a2f; /* Color más oscuro al hacer hover */
+}
+
+/* Bloquear scrolls durante las animaciones */
+body.bloquear-scroll {
+    overflow: hidden;
+}
+
+/* Panel izquierdo (secundario) */
+.panel-izquierdo {
+    flex: 1;
+    max-width: 200px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    cursor: pointer; /* Mantén el cursor como pointer para indicar que es interactuable */
+}
+
+/* Estilos para el nuevo panel */
+#menu-panel-izquierdo {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw;
+    height: 63vh;
+    max-height: 700px;
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    z-index: 1000;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+}
+
+
+/* Contenedor para las casillas */
+.contenido-panel-izquierdo {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 20px;
+}
+
+/* Estilos para cada casilla */
+.casilla {
+    flex: 1 1 calc(50% - 10px); /* Dos casillas por fila con un espacio de 10px */
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.casilla:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+.casilla h4 {
+    font-size: 1.2rem;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+.casilla p {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+@media (max-width: 768px) {
+    .casilla {
+        flex: 1 1 100%; /* Una casilla por fila en móviles */
+    }
+}
+
+#menu-panel-izquierdo.mostrar {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+.contenido-panel {
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.contenido-panel::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+}
+
+.contenido-panel {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+.estado-conexion h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #0fa037; /* Nuevo color */
+}
+
+.estado-conexion p {
+    font-size: 1rem;
+    color: #555;
+}
+
+.indicador-conexion {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: #ff0000;
+    border-radius: 50%;
+    margin-left: 10px;
+}
+
+
+
+/* Panel central */
+.centro {
+    flex: 2; /* Ocupa más espacio que los paneles laterales */
+ 
+    background-color: #ffffff; /* Color de fondo */
+    padding: 50px; /* Padding interno */
+    border-radius: 5px; /* Bordes redondeados */
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); /* Sombra */
+    text-align: center;
+    margin: 0 auto; /* Centra el panel horizontalmente */
+    height: 400px; /* Permite ajustar la altura */
+    width: 10000px; /* Permite ajustar el ancho */
+    display: flex; /* Activa flexbox */
+    flex-direction: column; /* Apila los elementos verticalmente */
+    justify-content: space-between; /* Distribuye el espacio entre los elementos */
+    margin-top: -50px; /* Mueve el panel 20px hacia arriba */
+}
+
+
+/* Botón de configuración */
+.botones-consola {
+    margin-top: auto; /* Empuja el botón hacia la parte inferior */
+    padding-top: 10px; /* Espacio entre los cuadros y el botón */
+}
+
+
+/* Contenedor de los paneles cuadrados */
+.paneles-cuadrados {
+    display: flex;
+    flex-wrap: wrap; /* Permite que los paneles se ajusten en varias filas */
+    gap: 5px; /* Espacio entre los paneles */
+    justify-content: center; /* Centra los paneles horizontalmente */
+    align-items: center; /* Centra los paneles verticalmente */
+    flex-grow: 1; /* Ocupa el espacio disponible */
+}
+
+/* Estilos base para todos los paneles cuadrados */
+.panel-cuadrado-Humedad,
+.panel-cuadrado-Temperatura,
+.panel-cuadrado-Humedad-Aire,
+.panel-cuadrado-Presencia,
+.panel-cuadrado.boton-adicional {
+    flex: 1 1 calc(25% - 5px); /* Cada panel ocupa el 25% del espacio, menos el gap */
+    aspect-ratio: 1 / 1; /* Mantiene la relación de aspecto 1:1 (cuadrado) */
+    background-color: #f9f9f9; /* Color de fondo */
+    padding: 5px; /* Padding reducido */
+    border-radius: 5px; /* Bordes redondeados */
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); /* Sombra suave */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center; /* Centra el contenido verticalmente */
+    align-items: center; /* Centra el contenido horizontalmente */
+    min-width: 60px; /* Ancho mínimo */
+    height: 60px; /* Altura fija para asegurar que todos los cuadrados tengan el mismo tamaño */
+}
+
+/* Estilos para los títulos de los paneles cuadrados */
+.panel-cuadrado-Humedad h3,
+.panel-cuadrado-Temperatura h3,
+.panel-cuadrado-Humedad-Aire h3,
+.panel-cuadrado-Presencia h3 {
+    font-size: 16px; /* Tamaño de fuente */
+    margin-bottom: 3px; /* Margen inferior */
+    color: #2c3e50; /* Color del texto */
+}
+
+/* Estilos para los valores de los paneles cuadrados */
+.panel-cuadrado-Humedad .valor,
+.panel-cuadrado-Temperatura .valor,
+.panel-cuadrado-Humedad-Aire .valor,
+.panel-cuadrado-Presencia .valor {
+    font-size: 0.9rem; /* Tamaño de fuente */
+    font-weight: bold;
+    color: #0fa037; /* Color del valor */
+}
+
+/* Estilos específicos para el botón adicional */
+.panel-cuadrado.boton-adicional {
+    background-color: #e0e0e0; /* Color de fondo diferente para el botón */
+    cursor: not-allowed; /* Cambia el cursor a "no permitido" */
+    border: none; /* Elimina el borde */
+    height: 70px; /* Botón más alto */
+}
+
+.panel-cuadrado.boton-adicional span {
+    font-size: 0.9rem; /* Tamaño de fuente */
+    color: #666; /* Color del texto */
+}
+
+/* Estilos responsivos */
+@media (max-width: 768px) {
+    .panel-cuadrado-Humedad,
+    .panel-cuadrado-Temperatura,
+    .panel-cuadrado-Humedad-Aire,
+    .panel-cuadrado-Presencia,
+    .panel-cuadrado.boton-adicional {
+        flex: 1 1 calc(50% - 5px); /* Cada panel ocupa el 50% del espacio en móviles */
+    }
+}
+
+/* Contenedor para "Presencia" y el nuevo botón */
+.panel-cuadrado-contenedor {
+    flex: 1 1 calc(100% - 2px); /* Ocupa el mismo espacio que un cuadrado */
+    display: flex;
+    gap: 5px; /* Espacio entre el cuadro y el botón */
+}
+
+/* Estilo para los elementos de mitad de ancho */
+.mitad-ancho {
+    flex: 1; /* Ocupa la mitad del espacio disponible */
+    min-width: calc(50% - 2.5px); /* Mitad del ancho, menos la mitad del gap */
+}
+
+/* Estilo para el nuevo botón */
+.boton-adicional {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #000000; /* Mismo color de fondo que los cuadrados */
+    border: none; /* Quita el borde por defecto de los botones */
+    padding: 5px;
+    border-radius: 5px; /* Bordes redondeados como los cuadrados */
+    box-shadow: 0 1px 5px rgba(0, 0, 0, 0.1); /* Sombra como los cuadrados */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    font-size: 140px; /* Tamaño de la letra */
+    color: #2c3e50; /* Color del texto */
+    text-align: center;
+    height: 200px; /* Permite ajustar la altura */
+}
+
+/* Efecto hover para el botón */
+.boton-adicional:hover {
+    background-color: #e0e0e0; /* Cambia el color de fondo al pasar el mouse */
+}
+
+/* Efecto active para el botón */
+.boton-adicional:active {
+    transform: scale(0.98); /* Reduce ligeramente el tamaño al hacer clic */
+}
+
+
+
+.bienvenida h2 {
+    font-size: 2rem;
+    margin-bottom: 10px;
+    color: #0fa037; /* Nuevo color */
+}
+
+.bienvenida p {
+    font-size: 1.2rem;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+.botones-consola {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.btn-consola {
+    background-color: #0fa037; /* Nuevo color */
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    border-radius: 8px;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+
+.btn-consola:hover {
+    background-color: #0d8a2f; /* Color más oscuro al hacer hover */
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(15, 160, 55, 0.3);
+}
+
+.btn-consola:active {
+    background-color: #0b7327; /* Color aún más oscuro al hacer clic */
+    transform: scale(0.95);
+}
+
+/* Panel derecho (secundario) */
+.panel-derecho {
+    flex: 1;
+    max-width: 200px;
+    background-color: #ffffff;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-right: 42px; /* Ajusta este valor según la separación que desees */
+}
+
+
+
+/* Animación de interactividad para el panel derecho */
+#panel-derecho {
+    cursor: pointer;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+#panel-derecho:hover {
+    transform: scale(1.05);
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+/* Desactivar la selección de texto */
+#panel-derecho,
+#menu-panel-derecho {
+    user-select: none; /* Evita que el texto sea seleccionable */
+}
+
+#panel-derecho h3,
+#panel-derecho ul,
+#menu-panel-derecho h2,
+#menu-panel-derecho ul {
+    pointer-events: none; /* Evita que el cursor cambie al ícono de texto */
+}
+
+/* Estilos para el panel de notificaciones */
+#menu-panel-derecho {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90vw;
+    height: 63vh;
+    max-height: 700px;
+    background-color: #ffffff;
+    padding: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    border-radius: 20px;
+    transition: opacity 0.5s ease, transform 0.5s ease;
+    z-index: 1000;
+    overflow: hidden;
+    opacity: 0;
+    pointer-events: none;
+}
+
+#menu-panel-derecho.mostrar {
+    opacity: 1;
+    pointer-events: auto;
+}
+
+/* Contenedor del contenido con scroll oculto */
+.contenido-panel {
+    max-height: 50vh; /* Ajusta la altura según sea necesario */
+    overflow-y: auto; /* Scroll vertical */
+    padding: 30px;
+    margin: 50px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+/* Ocultar la barra de scroll */
+.contenido-panel::-webkit-scrollbar {
+    width: 0; /* Ocultar scroll en Chrome, Safari y Edge */
+    background: transparent;
+}
+
+.contenido-panel {
+    scrollbar-width: none; /* Ocultar scroll en Firefox */
+    -ms-overflow-style: none; /* Ocultar scroll en IE y Edge */
+}
+
+/* Estilos para cada panel de actualización */
+.panel-actualizacion {
+    background-color: #f9f9f9;
+    padding: 15px;
+    margin-bottom: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.panel-actualizacion:hover {
+    transform: scale(1.02);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+}
+
+/* Estilos para la fecha */
+.panel-actualizacion .fecha {
+    font-size: 0.9rem;
+    color: #777;
+    margin-bottom: 5px;
+}
+
+/* Estilos para el subtítulo */
+.panel-actualizacion .subtitulo {
+    font-size: 1.2rem;
+    font-weight: bold;
+    color: #2c3e50;
+    margin-bottom: 10px;
+}
+
+/* Estilos para el texto */
+.panel-actualizacion .texto {
+    font-size: 1rem;
+    color: #555;
+    line-height: 1.5;
+}
+
+
+
+.btn-volver-configuracion:hover {
+    background-color: #0d8a2f;
+}
+
+.contenido-panel::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+}
+
+.contenido-panel {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+/* Estilos para el botón de "Volver" */
+.btn-volver-configuracion {
+    position: sticky;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #0fa037;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 1001;
+    margin-top: 20px;
+}
+
+.btn-volver-configuracion:hover {
+    background-color: #0d8a2f;
+}
+
+.notificaciones h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #0fa037; /* Nuevo color */
+}
+
+.notificaciones ul {
+    list-style: none;
+    padding: 0;
+}
+
+.notificaciones li {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+
+
+
+.politicas-contenido {
+    max-height: 400px;
+    overflow-y: auto;
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+}
+
+.politicas-contenido::-webkit-scrollbar {
+    width: 0;
+    background: transparent;
+}
+
+.politicas-contenido {
+    scrollbar-width: none;
+    -ms-overflow-style: none;
+}
+
+
+
+
+/* Estilos para el panel de temas */
+#menu-tema {
+    background-color: white;
+    color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    max-height: 70vh;
+    overflow-y: auto;
+    scrollbar-width: none;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+#menu-tema::-webkit-scrollbar {
+    display: none;
+}
+
+.temas-container {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    padding-bottom: 70px;
+}
+
+.tema-opcion {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.tema-texto {
+    font-size: 1.2rem;
+    color: white;
+}
+
+.tema-interruptor {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.tema-interruptor input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.tema-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #7f8c8d;
+    transition: 0.4s;
+    border-radius: 34px;
+}
+
+.tema-slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .tema-slider {
+    background-color: #0fa037;
+}
+
+input:checked + .tema-slider:before {
+    transform: translateX(26px);
+}
+
+.btn-volver-configuracion {
+    position: sticky;
+    bottom: 20px;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #0fa037;
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    border-radius: 10px;
+    transition: all 0.3s ease;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    z-index: 1001;
+    pointer-events: auto;
+    margin-top: 20px;
+}
+
+.btn-volver-configuracion:hover {
+    background-color: #0d8a2f;
+}
+
+
+
+
+
+
+/* Estilos para el panel de Log In */
+.panel-login {
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 90%;
+    max-width: 400px;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 20px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+    opacity: 0; /* Inicialmente invisible */
+    visibility: hidden; /* Inicialmente oculto */
+    pointer-events: none; /* Desactiva la interacción */
+    transition: opacity 0.5s ease, visibility 0.5s ease; /* Transición suave */
+}
+
+.panel-login.mostrar {
+    opacity: 1; /* Hacer visible */
+    visibility: visible; /* Mostrar el panel */
+    pointer-events: auto; /* Activa la interacción */
+}
+
+/* Estilos para el contenido principal */
+main.consola {
+    opacity: 1; /* Inicialmente visible */
+    visibility: visible; /* Inicialmente visible */
+    transition: opacity 0.5s ease, visibility 0.5s ease; /* Transición suave */
+    
+}
+
+main.consola.fade-out {
+    opacity: 0; /* Desvanecer */
+    visibility: hidden; /* Ocultar */
+}
+
+.login-contenido {
+    text-align: center;
+}
+
+.login-contenido h2 {
+    font-size: 2rem;
+    margin-bottom: 20px;
+    color: #0fa037;
+}
+
+.form-group {
+    margin-bottom: 20px;
+    text-align: left;
+}
+
+.form-group label {
+    display: block;
+    font-size: 1rem;
+    margin-bottom: 5px;
+    color: #333;
+}
+
+.form-group input {
+    width: 100%;
+    padding: 10px;
+    font-size: 1rem;
+    border: 2px solid #0fa037;
+    border-radius: 8px;
+    transition: border-color 0.3s ease;
+}
+
+.form-group input:focus {
+    border-color: #0d8a2f;
+    outline: none;
+}
+
+.link-olvidaste {
+    font-size: 0.9rem;
+    color: #0fa037;
+    text-decoration: none;
+    transition: color 0.3s ease;
+}
+
+.link-olvidaste:hover {
+    color: #0d8a2f;
+}
+
+.submit-btn,
+.btn-registro,
+.btn-cerrar-login {
+    width: 100%;
+    padding: 15px;
+    font-size: 1rem;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 10px;
+}
+
+.btn-login {
+    background-color: #0fa037;
+    color: white;
+}
+
+.btn-login:hover {
+    background-color: #0d8a2f;
+}
+
+.btn-registro {
+    background-color: #2c3e50;
+    color: white;
+}
+
+.btn-registro:hover {
+    background-color: #1a2a3a;
+}
+
+.btn-cerrar-login {
+    background-color: #ff4d4d;
+    color: white;
+}
+
+.btn-cerrar-login:hover {
+    background-color: #cc0000;
+}
+
+   
+
+
+
+
+.pasta {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px; /* Espacio entre los cuadros */
+    flex-wrap: wrap; /* Permite que los cuadros se acomoden de forma automática si no caben en una fila */
+    margin-top: 20px;
+}
+
+/* Estilo para cada cuadro */
+.pizza {
+    background-color: #f0f0f0;
+    padding: 30px;
+    border-radius: 8px;
+    width: 23%; /* Tamaño de cada cuadro, se ajusta para que todo encaje */
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 16px; /* Tamaño de texto más grande */
+    box-sizing: border-box;
+}
+
+.lasagna {
+    background-color: #f0f0f0;
+    padding: 30px;
+    border-radius: 8px;
+    width: 23%;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.risotto {
+    background-color: #f0f0f0;
+    padding: 30px;
+    border-radius: 8px;
+    width: 23%;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+.gelato {
+    background-color: #f0f0f0;
+    padding: 30px;
+    border-radius: 8px;
+    width: 23%;
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    font-size: 16px;
+    box-sizing: border-box;
+}
+
+/* Estilo para el texto dentro de los cuadros */
+.pizza p, .lasagna p, .risotto p, .gelato p {
+    margin: 0;
+    color: #333;
+}
+
+/* Estilo para el botón de volver */
+.btn-volver-configuracion {
+    display: block;
+    margin: 30px auto;
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.btn-volver-configuracion:hover {
+    background-color: #45a049;
+}
+
+
+
+
+
+
+
+
+/* Footer oscuro */
+footer {
+    background-color: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    overflow: hidden;
+    transition: height 0.3s ease;
+    z-index: 1001;
+}
+
+footer:hover {
+    height: 140px;
+}
+
+.footer-contacto {
+    padding: 10px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-contenido {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0 20px;
+    height: 100px;
+}
+
+.footer-izquierda,
+.footer-derecha {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.footer-izquierda {
+    text-align: left;
+}
+
+.footer-derecha {
+    text-align: right;
+}

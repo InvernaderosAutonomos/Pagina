@@ -1,0 +1,212 @@
+/* Estilos generales para móviles */
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    background-color: #f5f5f5;
+    color: #333;
+    overflow: hidden;
+}
+
+/* Encabezado */
+header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #2c3e50;
+    color: white;
+    padding: 10px 20px;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 1000;
+}
+
+/* Cuerpo - Interfaz de consola */
+main.consola {
+    flex: 1;
+    display: flex;
+    flex-direction: column; /* Apilar elementos verticalmente */
+    justify-content: flex-start; /* Alinear contenido al inicio */
+    align-items: center;
+    padding: 20px;
+    gap: 10px; /* Espacio más pequeño entre elementos */
+    transition: opacity 0.5s ease;
+    height: 100%; /* Ocupar toda la altura disponible */
+    width: 100%;
+    overflow-y: auto; /* Permitir scroll vertical */
+    margin-top: 60px; /* Espacio para el encabezado fijo */
+}
+
+/* Panel central */
+.centro {
+    width: 100%; /* Ancho completo */
+    max-width: 600px; /* Tamaño fijo */
+    background-color: #ffffff;
+    padding: 20px; /* Padding fijo */
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    text-align: center;
+    margin-bottom: 10px; /* Espacio debajo del panel central */
+}
+
+/* Contenedor para los paneles laterales */
+.paneles-laterales {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    width: 100%;
+    max-width: 600px; /* Tamaño fijo */
+    gap: 10px; /* Espacio entre paneles */
+}
+
+/* Panel izquierdo */
+.panel-izquierdo {
+    width: 48%; /* Tamaño fijo */
+    background-color: #ffffff;
+    padding: 15px; /* Padding fijo */
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Panel derecho */
+.panel-derecho {
+    width: 48%; /* Tamaño fijo */
+    background-color: #ffffff;
+    padding: 15px; /* Padding fijo */
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilos para el contenido dentro de los paneles */
+.estado-conexion h3,
+.notificaciones h3 {
+    font-size: 1.2rem;
+    margin-bottom: 10px;
+    color: #0fa037; /* Nuevo color */
+}
+
+.estado-conexion p,
+.notificaciones li {
+    font-size: 1rem;
+    color: #555;
+    margin-bottom: 10px;
+}
+
+.indicador-conexion {
+    display: inline-block;
+    width: 10px;
+    height: 10px;
+    background-color: #ff0000;
+    border-radius: 50%;
+    margin-left: 10px;
+}
+
+.notificaciones ul {
+    list-style: none;
+    padding: 0;
+}
+
+/* Footer oscuro */
+footer {
+    background-color: #2c3e50;
+    color: white;
+    text-align: center;
+    padding: 10px;
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 40px;
+    overflow: hidden;
+    transition: height 0.3s ease;
+    z-index: 1001;
+}
+
+footer:hover {
+    height: 140px;
+}
+
+.footer-contacto {
+    padding: 10px;
+    height: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.footer-contenido {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    padding: 0 20px;
+    height: 100px;
+}
+
+.footer-izquierda,
+.footer-derecha {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+}
+
+.footer-izquierda {
+    text-align: left;
+}
+
+.footer-derecha {
+    text-align: right;
+}
+
+/* Estilos específicos para resoluciones bajas (móviles pequeños) */
+body.resolucion-baja .paneles-laterales {
+    flex-direction: column; /* Apilar paneles verticalmente */
+}
+
+body.resolucion-baja .panel-izquierdo,
+body.resolucion-baja .panel-derecho {
+    width: 100%; /* Ocupar todo el ancho */
+}
+
+/* Estilos específicos para resoluciones medias (tablets o móviles grandes) */
+body.resolucion-media .paneles-laterales {
+    flex-direction: row; /* Colocar paneles uno al lado del otro */
+}
+
+/* Estilos específicos para resoluciones altas (computadoras) */
+body.resolucion-alta .paneles-laterales {
+    flex-direction: row; /* Colocar paneles uno al lado del otro */
+}
+
+/* Ajustes adicionales para el panel central */
+body.resolucion-baja .centro {
+    order: 1; /* El panel central va primero en resoluciones bajas */
+}
+
+body.resolucion-baja .panel-izquierdo {
+    order: 2; /* El panel izquierdo va segundo */
+}
+
+body.resolucion-baja .panel-derecho {
+    order: 3; /* El panel derecho va tercero */
+}
+
+body.resolucion-media .centro,
+body.resolucion-alta .centro {
+    order: 2; /* El panel central va en el medio en resoluciones medias y altas */
+}
+
+body.resolucion-media .panel-izquierdo,
+body.resolucion-alta .panel-izquierdo {
+    order: 1; /* El panel izquierdo va primero */
+}
+
+body.resolucion-media .panel-derecho,
+body.resolucion-alta .panel-derecho {
+    order: 3; /* El panel derecho va tercero */
+}

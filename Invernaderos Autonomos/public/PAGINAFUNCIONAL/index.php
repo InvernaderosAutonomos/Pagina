@@ -1,3 +1,20 @@
+<?php
+session_start(); // Asegúrate de que la sesión esté iniciada
+
+// Verificar si hay datos en la sesión
+if (isset($_SESSION['nombre_usuario'], $_SESSION['apellidos'], $_SESSION['correo'], $_SESSION['telefono'])) {
+    $nombre_usuario = $_SESSION['nombre_usuario'];
+    $apellidos = $_SESSION['apellidos'];
+    $correo = $_SESSION['correo'];
+    $telefono = $_SESSION['telefono'];
+} else {
+    // Si no hay datos en la sesión, asignar valores predeterminados
+    $nombre_usuario = "Cargando...";
+    $apellidos = "Cargando...";
+    $correo = "Cargando...";
+    $telefono = "Cargando...";
+}
+?>
 
 
 <!DOCTYPE html>
